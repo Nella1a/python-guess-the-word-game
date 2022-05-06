@@ -1,9 +1,10 @@
+
 # variables
 from re import U
 
 
 words = ["king", "gold","vienna","finance","developer"]
-user_guess = ["king", "gold","vienna","finance","developer"]
+user_guess = words.copy()
 word_length = len(words)
 characters = []
 count = 3
