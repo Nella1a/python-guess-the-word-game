@@ -3,7 +3,19 @@
 from re import U
 
 
-words = ["king", "gold","vienna","finance","developer"]
+# words = [{
+#   "level_one": ["king", "gold","vienna","finance","developer"]
+# },
+# {
+#   "level_two": ["king", "gold","vienna","finance","developer"]
+# },
+# {
+#   "level_three": ["king", "gold","vienna","finance","developer"]
+# },
+# ]
+
+words = ["king", "gold","sing"]
+
 user_guess = words.copy()
 word_length = len(words)
 characters = []
@@ -30,10 +42,10 @@ print(f"Try to guess the world as quickly as possible.\nYou have a maximum of 3 
 start_game = input("Press 'y' to start the game: ")
 i = 0
 
-while start_game == 'y':
+while start_game == 'y' and i < len(user_guess):
   print("Guess the word:", user_guess[i])
   count = 3
-  if i < 5:
+  if i < len(user_guess):
     while count >= 1 and user_guess[i] != words[i]:
       user_input = input(f"\nYou have {count} tries left.\nYour guess: ")
       index_of_character = words[i].find(user_input) # return = index of the character
@@ -46,6 +58,9 @@ while start_game == 'y':
           print(f"\nGreat work:  {user_guess[i]}")
           start_game = input("Press 'y' to start a new game or 'x' to end the game: \n")
           break
+      elif count == 1 and user_guess[i] != words[i]:
+          print("Upps: U could not find the word: \n")
+          break
       else:
         print("Upps: wrong guess! Try again.")
 
@@ -55,4 +70,6 @@ while start_game == 'y':
     print("Game Over. There are no words left")
     break
 
-start_game = input("Press 'y' to start a new game or 'x' to end the game.")
+  start_game = input("Press 'y' to start a new game or 'x' to end the game.")
+
+print("GAME OVER")
