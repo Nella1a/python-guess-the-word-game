@@ -10,14 +10,14 @@ def validate_user_input(input):
       return True
 
 
-def check_user_input_in_secret_word(input,guessed_characters):
+def check_user_input_in_secret_word(input,orig_word):
   '''check if guessed charater is in secret word
   '''
-  if input in guessed_characters:
-      print("guessed characters:", guessed_characters)
-      return True
+  if input in orig_word:
+    return True
   else:
-      return False
+    return False
+
 
 
 
