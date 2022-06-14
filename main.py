@@ -1,4 +1,4 @@
-from functions import check_user_input, start_new_game, reveal_letter
+from functions import validate_user_input, start_new_game, reveal_letter, check_user_input_in_secret_word
 # variables
 # from re import U
 
@@ -13,9 +13,6 @@ from functions import check_user_input, start_new_game, reveal_letter
 #   "level_three": ["king", "gold","vienna","finance","developer"]
 # },
 # ]
-
-from tkinter import Y
-
 
 secret_words = ["king", "gold"]
 
@@ -35,24 +32,6 @@ for word in hide_secret_words:
       word = word.replace(word[i],"_",1)
   hide_secret_words[index] = word
 
-# print(hide_secret_words)
-
-
-# def check_user_input(input,guessed_characters):
-#     if len(input) > 1:
-#       return False
-#     elif input in guessed_characters:
-#       print("guessed characters:", guessed_characters)
-#       return False
-#     else:
-#       return True
-
-# def start_new_game():
-#     return input("\nPress 'y' to start a new game or 'any key' to end the game: ")
-
-# def reveal_letter(guess, orig_word,reveal_letter_in_word):
-#   index_of_letter = orig_word.find(guess) # get index of letter
-#   return reveal_letter_in_word.replace(reveal_letter_in_word[index_of_letter],orig_word[index_of_letter],1)
 
 
 
@@ -72,11 +51,17 @@ while start_game == 'y' and i < len(hide_secret_words):
 
     while guess_count > no_guess_left and orig_word != guess_word:
       print(f"\nSecret word: {guess_word} ")
+
       user_input = input(f"{guess_count} try/tries left.\nYour guess: ")
-      valid_input = check_user_input(user_input, guessed_characters)
+
+      # valid_input = check_user_input(user_input, guessed_characters)
+
+      valid_input = validate_user_input(user_input)
       print("valid input:", valid_input)
 
-      if valid_input:
+
+      if check_user_input_in_secret_word(valid_input,guessed_characters):
+      #if valid_input:
         guessed_characters.append(user_input)
 
         if user_input in orig_word:
