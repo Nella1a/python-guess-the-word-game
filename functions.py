@@ -35,6 +35,10 @@ def start_new_game():
     return input("\nPress 'y' to start a new game or 'any key' to end the game: ")
 
 
+def find_indexes(secr_word, character):
+  return [index for index, char in enumerate(secr_word) if char == character]
+
+
 def reveal_letter(guess, orig_word,reveal_letter_in_word):
   index_of_letter = orig_word.find(guess) # get index of letter
   return reveal_letter_in_word.replace(reveal_letter_in_word[index_of_letter],orig_word[index_of_letter])

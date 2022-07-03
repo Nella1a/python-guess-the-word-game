@@ -1,13 +1,13 @@
-from functions import validate_user_input, start_new_game, reveal_letter, hide_current_secret_word
+from functions import find_indexes, validate_user_input, start_new_game, reveal_letter, hide_current_secret_word
 
-secret_words = ["see", "gold"]
+secret_words = ["king", "gold"]
 hide_secret_words = secret_words[:]
 secret_words_length = len(secret_words)
 guessed_characters = []
 guess_left = 0
 out_of_guesses = False
 guessed_char = ""
-count = 0
+
 
 # hide characters, show only first and last
 
@@ -39,27 +39,28 @@ while start_game == 'y':
     guess_count = 0
 
     if valid_input:
+
       if user_input in secret_words[i]:
-        # check occurence of character
-        # count_char = secret_word[i].count(user_input)
-        index_of_guessed_char = secret_words[i].find(user_input)
+        count = 1
         secret_word = list(secret_word)
+        count_char = find_indexes(secret_words[i],user_input)
 
-        print("index:", index_of_guessed_char)
-        print("sWorld:", secret_word)
+        for i in count_char:
+          secret_word[i] = user_input
+          print("reveal secret word", secret_word)
+          count += 1
+      else:
+        print("Upps, wrong guess")
+        pass
 
-        secret_word[index_of_guessed_char] = secret_words[i][index_of_guessed_char]
-        print("reveal secret word", secret_word)
-        print(secret_word[index_of_guessed_char])
-        print(secret_words[i][index_of_guessed_char])
-        print("len secret word:", len(secret_word))
-        print("len secret words:", len(secret_words[i]))
+      guess_count -= 1
+
+    guessed_word = str(guessed_word)
+  start_game = start_game()
 
 
 
-    guess_count -= 1
-
-  start_game == 'n'
+  #start_game == 'n'
   #print("End of game!")
   #break
 
