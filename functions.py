@@ -1,16 +1,27 @@
+import re
 
-def check_user_input(input,guessed_characters):
-    if len(input) > 1:
-      return False
-    elif input in guessed_characters:
-      print("guessed characters:", guessed_characters)
-      return False
-    else:
-      return True
+
+def hide_current_secret_word(secret_word):
+  '''hide characters of current secret word except first and last'''
+  #hide_char = secret_word[1:-1]
+  hide_char_length = len(secret_word[1:-1])
+  secret_word = secret_word[0] + "*" * hide_char_length + secret_word[-1]
+  return secret_word
+
+
+def validate_user_input(input):
+  ''' check if users guess is a single character and not a number '''
+  if len(input) == 1 and re.search("[a-zA-Z]",input):
+    return True
+  else:
+    return False
+
 
 def start_new_game():
     return input("\nPress 'y' to start a new game or 'any key' to end the game: ")
 
-def reveal_letter(guess, orig_word,reveal_letter_in_word):
-  index_of_letter = orig_word.find(guess) # get index of letter
-  return reveal_letter_in_word.replace(reveal_letter_in_word[index_of_letter],orig_word[index_of_letter],1)
+
+def find_indexes(secr_word, character):
+  '''find indexes of guessed character in secret word
+  '''
+  return [index for index, char in enumerate(secr_word) if char == character]

@@ -1,108 +1,51 @@
-from functions import check_user_input, start_new_game, reveal_letter
-# variables
-# from re import U
+from functions import find_indexes, validate_user_input, start_new_game, hide_current_secret_word
 
-
-# words = [{
-#   "level_one": ["king", "gold","vienna","finance","developer"]
-# },
-# {
-#   "level_two": ["king", "gold","vienna","finance","developer"]
-# },
-# {
-#   "level_three": ["king", "gold","vienna","finance","developer"]
-# },
-# ]
-
-from tkinter import Y
-
-
-secret_words = ["king", "gold"]
-
-hide_secret_words = secret_words.copy()
-word_length = len(secret_words)
-guessed_characters = []
-no_guess_left = 0
+secret_words = ["sunshine", "letter","icecream" ]
+hide_secret_words = secret_words[:]
+secret_words_length = len(secret_words)
 out_of_guesses = False
-user_input = ""
-i = 0
-
-# hide letters, show only first and last
-for word in hide_secret_words:
-  index = hide_secret_words.index(word)
-  for i in range(len(word)):
-   if i >= 1 and i < len(word) - 1:
-      word = word.replace(word[i],"_",1)
-  hide_secret_words[index] = word
-
-# print(hide_secret_words)
-
-
-# def check_user_input(input,guessed_characters):
-#     if len(input) > 1:
-#       return False
-#     elif input in guessed_characters:
-#       print("guessed characters:", guessed_characters)
-#       return False
-#     else:
-#       return True
-
-# def start_new_game():
-#     return input("\nPress 'y' to start a new game or 'any key' to end the game: ")
-
-# def reveal_letter(guess, orig_word,reveal_letter_in_word):
-#   index_of_letter = orig_word.find(guess) # get index of letter
-#   return reveal_letter_in_word.replace(reveal_letter_in_word[index_of_letter],orig_word[index_of_letter],1)
-
-
-
-
+guessed_char = ""
 start_game = start_new_game()
-i = 0
+count = 0
 
-while start_game == 'y' and i < len(hide_secret_words):
-
+while start_game == 'y':
   guess_count = 3
-  guessed_characters = []
+  #guessed_characters = []
+  guessed_word = ""
+  secret_word = hide_current_secret_word(secret_words[count])
+  print(secret_words[count])
+  print(secret_word)
 
-  # check secret words array
-  if i < len(hide_secret_words):
-    orig_word = secret_words[i]
-    guess_word = hide_secret_words[i]
+  while guess_count and secret_words[count] != guessed_word:
+    print(f"\nSecret word: {secret_word} ")
+    user_input = input(f"{guess_count} tries left.\nYour guess: ")
+    valid_input = validate_user_input(user_input)
 
-    while guess_count > no_guess_left and orig_word != guess_word:
-      print(f"\nSecret word: {guess_word} ")
-      user_input = input(f"{guess_count} try/tries left.\nYour guess: ")
-      valid_input = check_user_input(user_input, guessed_characters)
-      print("valid input:", valid_input)
+    if valid_input:
+      print("secret_words[i]:", secret_words[count])
 
-      if valid_input:
-        guessed_characters.append(user_input)
+      if user_input in secret_words[count]:
+        secret_word = list(secret_word)
+        count_char = find_indexes(secret_words[count],user_input)
 
-        if user_input in orig_word:
-          guess_word = reveal_letter(user_input, orig_word, guess_word)
-          if guess_word == orig_word:
-            print(f"*** {user_input} is correct: {guess_word} *** ")
-            print(f"**** Great work! The secret word is: {guess_word} ****\n")
-          else:
-            print(f"*** {user_input} is correct: {guess_word} *** ")
-        else:
-          print("Upps.Wrong guess or already guessed!")
-          if guess_count == (no_guess_left + 1) and orig_word != guess_word:
-             out_of_guesses= True
-             break
-        guess_count -= 1
+        for i in count_char:
+          secret_word[i] = user_input
+          print("reveal secret word", secret_word)
+
+        if secret_words[count] == "".join(secret_word):
+          print("Well Done.You have guessed the secret right. ")
+          break
+
       else:
-        print("Only single letters allowed!")
+        print("Upps, wrong guess")
 
-  if out_of_guesses:
-    print(f"Sorry you have no tries left.")
-    start_game = start_new_game()
-    i = 0
-    out_of_guesses= False
-  elif i == len(hide_secret_words) - 1:
-    print("You have guessed all secret words correctly.")
-    break
+    else:
+       print("Only single letters allowed!")
+
+    guess_count -= 1
+
   else:
-    start_game = start_new_game()
-    i += 1
+    print("You are out of guesses.")
+
+  start_game = start_new_game()
+  count += 1
