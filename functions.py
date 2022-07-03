@@ -17,7 +17,6 @@ def validate_user_input(input):
   if len(input) == 1 and re.search("[a-zA-Z]",input):
     return True
   else:
-    print("Only single letters allowed!")
     return False
 
 
