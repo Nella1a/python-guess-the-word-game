@@ -1,7 +1,5 @@
 import re
 
-from numpy import true_divide
-
 
 def hide_current_secret_word(secret_word):
   '''hide characters of current secret word except first and last'''
@@ -20,24 +18,9 @@ def validate_user_input(input):
     return False
 
 
-'''
-def check_user_input_in_secret_word(input,orig_word):
-  check if guessed charater is in secret word
-
-  if input in orig_word:
-    return True
-  else:
-    return False
-'''
-
 def start_new_game():
     return input("\nPress 'y' to start a new game or 'any key' to end the game: ")
 
 
 def find_indexes(secr_word, character):
   return [index for index, char in enumerate(secr_word) if char == character]
-
-
-def reveal_letter(guess, orig_word,reveal_letter_in_word):
-  index_of_letter = orig_word.find(guess) # get index of letter
-  return reveal_letter_in_word.replace(reveal_letter_in_word[index_of_letter],orig_word[index_of_letter])
