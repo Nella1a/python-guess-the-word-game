@@ -1,42 +1,73 @@
-from functions import validate_user_input, start_new_game, reveal_letter, check_user_input_in_secret_word
-# variables
-# from re import U
+from functions import validate_user_input, start_new_game, reveal_letter, hide_current_secret_word
 
-
-# words = [{
-#   "level_one": ["king", "gold","vienna","finance","developer"]
-# },
-# {
-#   "level_two": ["king", "gold","vienna","finance","developer"]
-# },
-# {
-#   "level_three": ["king", "gold","vienna","finance","developer"]
-# },
-# ]
-
-secret_words = ["king", "gold"]
-
-hide_secret_word = secret_words[:]
-word_length = len(secret_words)
+secret_words = ["see", "gold"]
+hide_secret_words = secret_words[:]
+secret_words_length = len(secret_words)
 guessed_characters = []
-no_guess_left = 0
+guess_left = 0
 out_of_guesses = False
-user_input = ""
-i = 0
+guessed_char = ""
+count = 0
 
 # hide characters, show only first and last
 
-for word in hide_secret_word:
-  index = hide_secret_word.index(word)
-  for i in range(len(word)):
-   if i >= 1 and i < len(word) - 1:
-      word = word.replace(word[i],"_",1)
-  hide_secret_word[index] = word
+'''
+for word in hide_secret_words:
+  index = hide_secret_words.index(word)
+  print(index, word)
+  hide_secret_words[index] = word
+  for count in range(len(word)):
+   if count >= 1 and count < len(word) - 1:
+      word = word.replace(word[count],"_",1)
+  hide_secret_words[index] = word
+'''
+
+start_game = start_new_game()
+i = 0
+while start_game == 'y':
+  guess_count = 3
+  guessed_characters = []
+  guessed_word = ""
+  secret_word = hide_current_secret_word(secret_words[0])
+  print(secret_words[0])
+  print(secret_word)
+
+  while guess_count and secret_words[0] != guessed_word:
+    print(f"\nSecret word: {secret_word} ")
+    user_input = input(f"{guess_count} try/tries left.\nYour guess: ")
+    valid_input = validate_user_input(user_input)
+    guess_count = 0
+
+    if valid_input:
+      if user_input in secret_words[i]:
+        # check occurence of character
+        # count_char = secret_word[i].count(user_input)
+        index_of_guessed_char = secret_words[i].find(user_input)
+        secret_word = list(secret_word)
+
+        print("index:", index_of_guessed_char)
+        print("sWorld:", secret_word)
+
+        secret_word[index_of_guessed_char] = secret_words[i][index_of_guessed_char]
+        print("reveal secret word", secret_word)
+        print(secret_word[index_of_guessed_char])
+        print(secret_words[i][index_of_guessed_char])
+        print("len secret word:", len(secret_word))
+        print("len secret words:", len(secret_words[i]))
+
+
+
+    guess_count -= 1
+
+  start_game == 'n'
+  #print("End of game!")
+  #break
 
 
 
 
 
+'''
 start_game = start_new_game()
 i = 0
 
@@ -48,10 +79,10 @@ while start_game == 'y' and i < len(hide_secret_word):
   # check secret words array
   if i < len(hide_secret_word):
     orig_word = secret_words[i]
-    guess_word = hide_secret_word[i]
+    guessed_word = hide_secret_word[i]
 
-    while guess_count > no_guess_left and orig_word != guess_word:
-      print(f"\nSecret word: {guess_word} ")
+    while guess_count > no_guess_left and orig_word != guessed_word:
+      print(f"\nSecret word: {guessed_word} ")
 
       user_input = input(f"{guess_count} try/tries left.\nYour guess: ")
 
@@ -66,15 +97,15 @@ while start_game == 'y' and i < len(hide_secret_word):
           #guessed_characters.append(user_input)
 
           #if user_input in orig_word:
-            guess_word = reveal_letter(user_input, orig_word, guess_word)
-            if guess_word == orig_word:
-              print(f"*** {user_input} is correct: {guess_word} *** ")
-              print(f"**** Great work! The secret word is: {guess_word} ****\n")
+            guessed_word = reveal_letter(user_input, orig_word, guessed_word)
+            if guessed_word == orig_word:
+              print(f"*** {user_input} is correct: {guessed_word} *** ")
+              print(f"**** Great work! The secret word is: {guessed_word} ****\n")
             else:
-              print(f"*** {user_input} is correct: {guess_word} *** ")
+              print(f"*** {user_input} is correct: {guessed_word} *** ")
         else:
             print("Upps.Wrong guess or already guessed!")
-            if guess_count == (no_guess_left + 1) and orig_word != guess_word:
+            if guess_count == (no_guess_left + 1) and orig_word != guessed_word:
               out_of_guesses= True
               break
         guess_count -= 1
@@ -92,3 +123,4 @@ while start_game == 'y' and i < len(hide_secret_word):
   else:
     start_game = start_new_game()
     i += 1
+'''
