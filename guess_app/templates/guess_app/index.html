@@ -13,6 +13,7 @@
             <li>Home</li>
             <li>Contact</li>
             <li>Login</li>
+
           </ul>
         </nav>
 
@@ -24,6 +25,10 @@
             <div class="flex justify-center items-center bg-gray-50 w-80 h-12 text-center hover:bg-sky-700 " >one</div>
             <div class="flex justify-center items-center bg-gray-50 w-80 h-12 text-center hover:bg-sky-700">two</div>
             <div class="flex justify-center items-center bg-gray-50 w-80 h-12 text-center hover:bg-sky-700">three</div>
+            {%for word in object_list%}
+            <div class="flex justify-center items-center bg-gray-50 w-80 h-12 text-center hover:bg-sky-700">{{word}}</div>
+            {%endfor%}
+
           </article>
         </div>
       </main>
