@@ -1,6 +1,6 @@
 from functions import find_indexes, validate_user_input, start_new_game, hide_current_secret_word
 
-secret_words = ["sunshine", "letter","icecream" ]
+secret_words = ["king", "letter","icecream" ]
 hide_secret_words = secret_words[:]
 secret_words_length = len(secret_words)
 out_of_guesses = False
@@ -9,7 +9,7 @@ start_game = start_new_game()
 count = 0
 
 while start_game == 'y':
-  guess_count = 3
+  guess_count = 10
   #guessed_characters = []
   guessed_word = ""
   secret_word = hide_current_secret_word(secret_words[count])
