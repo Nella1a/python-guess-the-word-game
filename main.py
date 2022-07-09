@@ -30,10 +30,10 @@ while start_game == 'y':
 
         for i in count_char:
           secret_word[i] = user_input
-          print("reveal secret word", secret_word)
+          print("reveal secret word", "".join(secret_word))
 
         if secret_words[count] == "".join(secret_word):
-          print("Well Done.You have guessed the secret right. ")
+          print("Well Done.You have guessed the secret word right. ")
           break
 
       else:
